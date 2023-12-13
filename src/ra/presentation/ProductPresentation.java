@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class ProductPresentation {
     public static List<Product> listProduct = new ArrayList<>();
     public static void productMenu(Scanner scanner) {
+        listProduct = ProductIpm.readProductFromFile();
         boolean isExitProduct = true;
         do {
             System.out.println("➢ ===== QUẢN LÝ SẢN PHẨM =====\n" +
@@ -28,12 +29,15 @@ public class ProductPresentation {
                 switch (choice) {
                     case 1:
                         ProductIpm.addProduct(scanner);
+                        ProductIpm.writeProducttoFile();
                         break;
                     case 2:
                         ProductIpm.updateProduct(scanner);
+                        ProductIpm.writeProducttoFile();
                         break;
                     case 3:
-                        ProductIpm.deleteCategory(scanner);
+                        ProductIpm.deleteProduct(scanner);
+                        ProductIpm.writeProducttoFile();
                         break;
                     case 4:
                         ProductIpm.softProductByName();

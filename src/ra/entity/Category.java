@@ -99,7 +99,7 @@ public class Category implements ICategory, Serializable {
             System.out.println("Tên danh mục:");
             String name = scanner.nextLine();
 
-            if (name.length() > 6 && name.length() < 30) {
+            if (name.length() >= 6 && name.length() <= 30) {
                 boolean isName = false;
                 for (Category category : listCategory) {
                     if (category.getName().equals(name)) {
@@ -195,10 +195,10 @@ public class Category implements ICategory, Serializable {
                 }
             } catch (NumberFormatException e) {
                 System.err.println("vui lòng nhâp số nguyên!");
-            }catch (Exception ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
 
-        }while (isExitUpdate);
+        } while (isExitUpdate);
     }
 }

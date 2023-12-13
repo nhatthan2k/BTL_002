@@ -231,15 +231,21 @@ public class Product implements IProduct, Serializable {
             }
 
             System.out.println("mã danh mục sản phẩm");
-            int categoryId = Integer.parseInt(scanner.nextLine());
-
-            for (Category category : listCategory) {
-                if (category.getId() == categoryId) {
-                    return categoryId;
+            try {
+                int categoryId = Integer.parseInt(scanner.nextLine());
+                for (Category category : listCategory) {
+                    if (category.getId() == categoryId) {
+                        return categoryId;
+                    }
                 }
+
+                System.out.println("không tồn tại mã danh mục trên");
+            } catch (NumberFormatException e) {
+                System.err.println("vui lòng nhập số nguyên!");
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
             }
 
-            System.out.println("không tồn tại mã danh mục trên");
         } while (true);
     }
 
