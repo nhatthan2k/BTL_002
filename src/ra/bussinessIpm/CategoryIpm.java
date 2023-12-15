@@ -43,6 +43,7 @@ public class CategoryIpm {
             if (category.getId() == updateId) {
                 category.updateData(scanner);
                 isUpdate = true;
+                System.out.println("cập nhật thành công!");
                 break;
             }
         }
@@ -71,13 +72,14 @@ public class CategoryIpm {
             System.out.println("Không tồn tại mã sản phẩm!");
         } else {
             if (CategoryIpm.hasProduct(deleteId)) {
-                System.out.println("danh mục chứa sản phẩm!");
+                System.out.println("danh mục chứa sản phẩm! không thể xóa");
             } else {
                 listCategory.remove(deleteIndex);
                 System.out.println("xóa sản phẩm thành công!");
             }
         }
     }
+
     public static boolean hasProduct(int catagoryId) {
         for (Product product : listProduct) {
             if (product.getCategoryId() == catagoryId) {
@@ -86,16 +88,17 @@ public class CategoryIpm {
         }
         return false;
     }
+
     public static void searchCategory(Scanner scanner) {
         System.out.println("tên danh mục tìm kiếm:");
         String searchName = scanner.nextLine();
-
+        Category.headerDisplayCategory();
         listCategory.stream().filter(category -> category.getName().contains(searchName)).forEach(System.out::println);
     }
 
     public static void quantityProduct() {
-        for (Category category: listCategory) {
-            long cntCatagory = listProduct.stream().filter(product -> product.getCategoryId()==category.getId()).count();
+        for (Category category : listCategory) {
+            long cntCatagory = listProduct.stream().filter(product -> product.getCategoryId() == category.getId()).count();
             System.out.printf("danh mục %s có %d sản phẩm\n", category.getName(), cntCatagory);
         }
     }
@@ -109,17 +112,17 @@ public class CategoryIpm {
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
             listCategoryRead = (List<Category>) ois.readObject();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             listCategoryRead = new ArrayList<>();
-        }finally {
-            if (fis!=null) {
+        } finally {
+            if (fis != null) {
                 try {
                     fis.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-            if (ois!=null) {
+            if (ois != null) {
                 try {
                     ois.close();
                 } catch (IOException e) {
@@ -129,6 +132,7 @@ public class CategoryIpm {
         }
         return listCategoryRead;
     }
+
     public static void writeCategorytoFile() {
         File file = new File("categories.txt");
         FileOutputStream fos = null;
@@ -138,9 +142,9 @@ public class CategoryIpm {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(listCategory);
             oos.flush();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             if (fos != null) {
                 try {
                     fos.close();
@@ -148,7 +152,7 @@ public class CategoryIpm {
                     throw new RuntimeException(e);
                 }
             }
-            if (oos!=null) {
+            if (oos != null) {
                 try {
                     oos.close();
                 } catch (IOException e) {

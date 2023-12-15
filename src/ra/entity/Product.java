@@ -109,7 +109,7 @@ public class Product implements IProduct, Serializable {
 
     public String inputIdProduct(Scanner scanner) {
         do {
-            System.out.println("mã sản phẩm:");
+            System.out.println("mã sản phẩm (4 kí tự, bắt đầu bằng “P”):");
             String id = scanner.nextLine();
 
             if (id.length() == 4) {
@@ -138,10 +138,10 @@ public class Product implements IProduct, Serializable {
 
     public String inputNameProduct(Scanner scanner) {
         do {
-            System.out.println("Tên sản phẩm:");
+            System.out.println("Tên sản phẩm (6-30 kí tự):");
             String nameProduct = scanner.nextLine();
 
-            if (nameProduct.length() > 6 && nameProduct.length() < 30) {
+            if (nameProduct.length() >= 6 && nameProduct.length() <= 30) {
                 boolean isNameProduct = false;
                 for (Product product : listProduct) {
                     if (product.getName().equals(nameProduct)) {
@@ -226,6 +226,7 @@ public class Product implements IProduct, Serializable {
     public int inputCategoryId(Scanner scanner) {
         do {
             System.out.println("mã danh mục đã lưu:");
+            headerDisplayProduct();
             for (Category category : listCategory) {
                 category.displayData();
             }
@@ -314,10 +315,18 @@ public class Product implements IProduct, Serializable {
 
     @Override
     public void displayData() {
-        System.out.printf("mã sản phẩm: %s - tên sản phẩm: %s - giá nhập sản phẩm: %f - giá bán sản phẩm: %f\n",
-                this.id, this.name, this.importPrice, this.exportPrice);
-        System.out.printf("lợi nhuận sản phẩm: %f - mô tả sản phẩm: %s -  trạng thái sản phẩm: %s - tên danh mục: %s\n",
-                this.profit, this.description, this.status ? "Còn hàng" : "Ngừng kinh doanh)", displayCategoryName(this.categoryId));
+        System.out.printf("| %-10s | %-15s | %-15f | %-15f | %-15f | %-15s | %-15s | %-15s |\n",
+                this.id, this.name, this.importPrice, this.exportPrice, this.profit, this.description, this.status, displayCategoryName(this.categoryId));
+        System.out.println("+------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+");
+    }
+
+    public static void headerDisplayProduct() {
+        String separator = "+------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+";
+        String header = "|     ID     |       Name      |   importPrice   |  exportPrice    |     Profit      |   Description   |     status      |  Category name  |";
+        System.out.printf(separator + "\n"
+                + header + "\n"
+                + separator + "\n"
+        );
     }
 
     @Override
@@ -327,15 +336,8 @@ public class Product implements IProduct, Serializable {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", importPrice=" + importPrice +
-                ", exportPrice=" + exportPrice +
-                ", profit=" + profit +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", categoryId=" + categoryId +
-                '}';
+        return String.format("| %-10s | %-15s | %-15f | %-15f | %-15f | %-15s | %-15s | %-15s |",
+                this.id, this.name, this.importPrice, this.exportPrice, this.profit, this.description, this.status, displayCategoryName(this.categoryId)) + "\n" +
+                "+------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+-----------------+";
     }
 }

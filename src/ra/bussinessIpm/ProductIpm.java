@@ -1,6 +1,5 @@
 package ra.bussinessIpm;
 
-import ra.entity.Category;
 import ra.entity.Product;
 
 import java.io.*;
@@ -33,6 +32,7 @@ public class ProductIpm {
             listProduct.add(product);
         }
     }
+
     public static void updateProduct(Scanner scanner) {
         System.out.println("nhập vào mã sản phẩm cần cập nhật:");
         String updateId = scanner.nextLine();
@@ -42,6 +42,7 @@ public class ProductIpm {
             if (product.getId().equals(updateId)) {
                 product.updateData(scanner);
                 isUpdate = true;
+                System.out.println("cập nhật thành công!");
                 break;
             }
         }
@@ -50,6 +51,7 @@ public class ProductIpm {
             System.out.println("Không tồn tại mã sản phẩm!");
         }
     }
+
     public static void deleteProduct(Scanner scanner) {
         System.out.println("mã sản phẩm cần xóa:");
         String deleteId = scanner.nextLine();
@@ -68,18 +70,24 @@ public class ProductIpm {
             System.out.println("Không tồn tại mã sản phẩm!");
         }
     }
+
     public static void softProductByName() {
+        Product.headerDisplayProduct();
         listProduct.stream().sorted(Comparator.comparing(Product::getName)).forEach(System.out::println);
     }
+
     public static void softProductByProfit() {
+        Product.headerDisplayProduct();
         listProduct.stream().sorted(Comparator.comparing(Product::getProfit).reversed()).forEach(System.out::println);
     }
+
     public static void searchProduct(Scanner scanner) {
         System.out.println("tên sản phẩm tìm kiếm:");
         String searchName = scanner.nextLine();
-
+        Product.headerDisplayProduct();
         listProduct.stream().filter(product -> product.getName().contains(searchName)).forEach(System.out::println);
     }
+
     public static List<Product> readProductFromFile() {
         List<Product> listProductRead = null;
         File file = new File("products.txt");
@@ -89,17 +97,17 @@ public class ProductIpm {
             fis = new FileInputStream(file);
             ois = new ObjectInputStream(fis);
             listProductRead = (List<Product>) ois.readObject();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             listProductRead = new ArrayList<>();
-        }finally {
-            if (fis!=null) {
+        } finally {
+            if (fis != null) {
                 try {
                     fis.close();
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-            if (ois!=null) {
+            if (ois != null) {
                 try {
                     ois.close();
                 } catch (IOException e) {
@@ -109,6 +117,7 @@ public class ProductIpm {
         }
         return listProductRead;
     }
+
     public static void writeProducttoFile() {
         File file = new File("products.txt");
         FileOutputStream fos = null;
@@ -118,9 +127,9 @@ public class ProductIpm {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(listProduct);
             oos.flush();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             if (fos != null) {
                 try {
                     fos.close();
@@ -128,7 +137,7 @@ public class ProductIpm {
                     throw new RuntimeException(e);
                 }
             }
-            if (oos!=null) {
+            if (oos != null) {
                 try {
                     oos.close();
                 } catch (IOException e) {

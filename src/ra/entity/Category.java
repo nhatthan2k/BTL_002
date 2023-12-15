@@ -65,7 +65,7 @@ public class Category implements ICategory, Serializable {
 
     public int inputId(Scanner scanner) {
         do {
-            System.out.println("mã danh mục:");
+            System.out.println("mã danh mục (số nguyên lớn hơn 0):");
             try {
                 int id = Integer.parseInt(scanner.nextLine());
 
@@ -96,7 +96,7 @@ public class Category implements ICategory, Serializable {
 
     public String inputName(Scanner scanner) {
         do {
-            System.out.println("Tên danh mục:");
+            System.out.println("Tên danh mục (từ 6-30 kí tự):");
             String name = scanner.nextLine();
 
             if (name.length() >= 6 && name.length() <= 30) {
@@ -147,17 +147,25 @@ public class Category implements ICategory, Serializable {
 
     @Override
     public void displayData() {
-        System.out.printf("mã danh mục: %d - tên danh mục: %s - mô tả danh mục: %s - trạng thái danh mục: %s\n",
+        System.out.printf("| %-5d | %-15s | %-15s | %-15s |\n",
                 this.id, this.name, this.description, this.status ? "Hoạt động" : "Không hoạt động");
+        System.out.println("+-------+-----------------+-----------------+-----------------+");
+    }
+
+    public static void headerDisplayCategory() {
+        String separator = "+-------+-----------------+-----------------+-----------------+";
+        String header = "|  ID   |       Name      |    Descrition   |      Status     |";
+        System.out.printf(separator + "\n"
+                + header + "\n"
+                + separator + "\n"
+        );
     }
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return String.format("| %-5d | %-15s | %-15s | %-15s |",
+                this.id, this.name, this.description, this.status ? "Hoạt động" : "Không hoạt động") + "\n" +
+                "+-------+-----------------+-----------------+-----------------+";
     }
 
     public void updateData(Scanner scanner) {

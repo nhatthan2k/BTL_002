@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class ProductPresentation {
     public static List<Product> listProduct = new ArrayList<>();
+
     public static void productMenu(Scanner scanner) {
         listProduct = ProductIpm.readProductFromFile();
         boolean isExitProduct = true;
@@ -60,6 +61,6 @@ public class ProductPresentation {
                 System.err.println(ex.getMessage());
             }
 
-        }while (isExitProduct);
+        } while (isExitProduct);
     }
 }
