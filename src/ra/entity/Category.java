@@ -79,12 +79,12 @@ public class Category implements ICategory, Serializable {
                     }
 
                     if (isId) {
-                        System.out.println("mã danh mục đã tồn tại! vui lòng nhập lại");
+                        System.err.println("mã danh mục đã tồn tại! vui lòng nhập lại");
                     } else {
                         return id;
                     }
                 } else {
-                    System.out.println("mã danh mục có giá trị lớn hơn 0");
+                    System.err.println("mã danh mục có giá trị lớn hơn 0");
                 }
             } catch (NumberFormatException e) {
                 System.err.println("vui lòng nhập lại kiểu số nguyên!");
@@ -109,12 +109,12 @@ public class Category implements ICategory, Serializable {
                 }
 
                 if (isName) {
-                    System.out.println("tên danh mục đã tồn tại! vui lòng nhập lại");
+                    System.err.println("tên danh mục đã tồn tại! vui lòng nhập lại");
                 } else {
                     return name;
                 }
             } else {
-                System.out.println("tên danh mục có từ 6-30 kí tự");
+                System.err.println("tên danh mục có từ 6-30 kí tự");
             }
         } while (true);
     }
@@ -125,7 +125,7 @@ public class Category implements ICategory, Serializable {
             String description = scanner.nextLine();
 
             if (description.trim().isEmpty()) {
-                System.out.println("không được bỏ trống mô tả!");
+                System.err.println("không được bỏ trống mô tả!");
             } else {
                 return description;
             }
@@ -140,7 +140,7 @@ public class Category implements ICategory, Serializable {
             if (status.equalsIgnoreCase("true") || status.equalsIgnoreCase("false")) {
                 return Boolean.parseBoolean(status);
             } else {
-                System.out.println("trạng thái danh mục chỉ nhận true/false!");
+                System.err.println("trạng thái danh mục chỉ nhận true/false!");
             }
         } while (true);
     }

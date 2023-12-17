@@ -48,7 +48,7 @@ public class ProductIpm {
         }
 
         if (!isUpdate) {
-            System.out.println("Không tồn tại mã sản phẩm!");
+            System.err.println("Không tồn tại mã sản phẩm!");
         }
     }
 
@@ -67,7 +67,7 @@ public class ProductIpm {
         }
 
         if (!isDelete) {
-            System.out.println("Không tồn tại mã sản phẩm!");
+            System.err.println("Không tồn tại mã sản phẩm!");
         }
     }
 

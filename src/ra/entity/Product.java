@@ -5,6 +5,7 @@ import ra.bussiness.IProduct;
 import java.io.Serializable;
 import java.util.Scanner;
 
+import static ra.entity.Category.headerDisplayCategory;
 import static ra.presentation.CategoryPresentation.listCategory;
 import static ra.presentation.ProductPresentation.listProduct;
 
@@ -105,6 +106,7 @@ public class Product implements IProduct, Serializable {
         this.description = inputDescription(scanner);
         this.status = inputStatus(scanner);
         this.categoryId = inputCategoryId(scanner);
+        calProfit();
     }
 
     public String inputIdProduct(Scanner scanner) {
@@ -123,15 +125,15 @@ public class Product implements IProduct, Serializable {
                     }
 
                     if (isIdProduct) {
-                        System.out.println("mã sản phẩm đã tồn tại! vui lòng nhập lại");
+                        System.err.println("mã sản phẩm đã tồn tại! vui lòng nhập lại");
                     } else {
                         return id;
                     }
                 } else {
-                    System.out.println("mã sản phẩm bắt đầu là P! vui lòng nhập lại");
+                    System.err.println("mã sản phẩm bắt đầu là P! vui lòng nhập lại");
                 }
             } else {
-                System.out.println("mã sản phẩm có 4 kí tự! vui lòng nhập lại");
+                System.err.println("mã sản phẩm có 4 kí tự! vui lòng nhập lại");
             }
         } while (true);
     }
@@ -151,12 +153,12 @@ public class Product implements IProduct, Serializable {
                 }
 
                 if (isNameProduct) {
-                    System.out.println("tên sản phẩm đã tồn tại! vui lòng nhập lại");
+                    System.err.println("tên sản phẩm đã tồn tại! vui lòng nhập lại");
                 } else {
                     return nameProduct;
                 }
             } else {
-                System.out.println("tên sản phẩm có từ 6-30 kí tự! vui lòng nhập lại");
+                System.err.println("tên sản phẩm có từ 6-30 kí tự! vui lòng nhập lại");
             }
         } while (true);
     }
@@ -169,7 +171,7 @@ public class Product implements IProduct, Serializable {
                 if (importPrice > 0) {
                     return importPrice;
                 } else {
-                    System.out.println("giá nhập có giá trị lớn hơn 0! vui lòng nhâp lại");
+                    System.err.println("giá nhập có giá trị lớn hơn 0! vui lòng nhâp lại");
                 }
             } catch (NumberFormatException e) {
                 System.err.println("vui lòng nhập số thực!");
@@ -187,7 +189,7 @@ public class Product implements IProduct, Serializable {
                 if (exportPrice > this.importPrice * (1 + MIN_INTEREST_RATE)) {
                     return exportPrice;
                 } else {
-                    System.out.printf("giá bản có giá trị lớn hơn giá nhập %f lần! vui lòng nhâp lại\n", MIN_INTEREST_RATE);
+                    System.err.printf("giá bản có giá trị lớn hơn giá nhập %f lần! vui lòng nhâp lại\n", MIN_INTEREST_RATE);
                 }
             } catch (NumberFormatException e) {
                 System.err.println("vui lòng nhập số thực!");
@@ -203,7 +205,7 @@ public class Product implements IProduct, Serializable {
             String description = scanner.nextLine();
 
             if (description.trim().isEmpty()) {
-                System.out.println("không được bỏ trống mô tả! vui lòng nhâp lại");
+                System.err.println("không được bỏ trống mô tả! vui lòng nhâp lại");
             } else {
                 return description;
             }
@@ -218,7 +220,7 @@ public class Product implements IProduct, Serializable {
             if (status.equalsIgnoreCase("true") || status.equalsIgnoreCase("false")) {
                 return Boolean.parseBoolean(status);
             } else {
-                System.out.println("trạng thái sản phẩm chỉ nhận true/false!");
+                System.err.println("trạng thái sản phẩm chỉ nhận true/false!");
             }
         } while (true);
     }
@@ -226,7 +228,7 @@ public class Product implements IProduct, Serializable {
     public int inputCategoryId(Scanner scanner) {
         do {
             System.out.println("mã danh mục đã lưu:");
-            headerDisplayProduct();
+            headerDisplayCategory();
             for (Category category : listCategory) {
                 category.displayData();
             }
@@ -240,7 +242,7 @@ public class Product implements IProduct, Serializable {
                     }
                 }
 
-                System.out.println("không tồn tại mã danh mục trên");
+                System.err.println("không tồn tại mã danh mục trên");
             } catch (NumberFormatException e) {
                 System.err.println("vui lòng nhập số nguyên!");
             } catch (Exception ex) {

@@ -49,7 +49,7 @@ public class CategoryIpm {
         }
 
         if (!isUpdate) {
-            System.out.println("Không tồn tại mã danh mục!");
+            System.err.println("Không tồn tại mã danh mục!");
         }
     }
 
@@ -69,10 +69,10 @@ public class CategoryIpm {
         }
 
         if (!isDelete) {
-            System.out.println("Không tồn tại mã sản phẩm!");
+            System.err.println("Không tồn tại mã sản phẩm!");
         } else {
             if (CategoryIpm.hasProduct(deleteId)) {
-                System.out.println("danh mục chứa sản phẩm! không thể xóa");
+                System.err.println("danh mục chứa sản phẩm! không thể xóa");
             } else {
                 listCategory.remove(deleteIndex);
                 System.out.println("xóa sản phẩm thành công!");
